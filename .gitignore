@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>טריוויה ויזואלית</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🎯 טריוויה ויזואלית</h1>
+
+<img id="img" src="" alt="רמז">
+
+<div id="answers"></div>
+
+<p id="result"></p>
+
+<button onclick="nextQuestion()">שאלה הבאה</button>
+
+<script src="script.js"></script>
+</body>
+</html>
+const questions = [
+  {
+    img: "https://via.placeholder.com/300?text=🚶‍♂️⬅️",
+    answers: ["לקחת צעד אחורה", "לברוח", "לוותר", "להתעלם"],
+    correct: 0
+  },
+  {
+    img: "https://via.placeholder.com/300?text=🏳️",
+    answers: ["להתעקש", "להרים דגל לבן", "לנצח", "להילחם"],
+    correct: 1
+  }
+];
+
+let index = 0;
+
+function loadQuestion() {
+  document.getElementById("img").src = questions[index].img;
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+  document.getElementById("result").innerText = "";
+
+  questions[index].answers.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.innerText = text;
+    btn.onclick = () => checkAnswer(i);
+    answersDiv.appendChild(btn);
+  });
+}
+
+function checkAnswer(i) {
+  document.getElementById("result").innerText =
+    i === questions[index].correct ? "✅ נכון!" : "❌ לא נכון";
+}
+
+function nextQuestion() {
+  index = (index + 1) % questions.length;
+  loadQuestion();
+}
+body {
+  font-family: Arial;
+  direction: rtl;
+  text-align: center;
+  background: #f2f2f2;
+}
+
+img {
+  width: 300px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 10px;
+}
+
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 200px;
+  font-size: 16px;
+}
